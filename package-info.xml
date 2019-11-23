@@ -3,23 +3,25 @@
 <package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
 	<id>Bugo:QuickSpoiler</id>
 	<name>Quick Spoiler</name>
-	<version>1.2.4</version>
+	<version>1.2.3</version>
 	<type>modification</type>
 
-	<install for="2.1 RC2, 2.1 RC3, 2.1 - 2.1.99">
+	<install for="2.0 - 2.0.99">
+		<readme parsebbc="true" lang="russian-utf8">readme/russian-utf8.txt</readme>
 		<readme parsebbc="true" lang="russian">readme/russian.txt</readme>
 		<readme parsebbc="true">readme/readme.txt</readme>
-		<hook hook="integrate_pre_load" function="QuickSpoiler::hooks" file="$sourcedir/Class-QuickSpoiler.php" />
 		<require-dir name="Themes" destination="$boarddir" />
 		<require-dir name="Sources" destination="$boarddir" />
+		<code>hooks.php</code>
 		<redirect url="?action=admin;area=modsettings;sa=general" timeout="1000" />
 	</install>
 
-	<uninstall for="2.1 RC2, 2.1 RC3, 2.1 - 2.1.99">
-		<hook hook="integrate_pre_load" function="QuickSpoiler::hooks" file="$sourcedir/Class-QuickSpoiler.php" reverse="true" />
+	<uninstall for="2.0 - 2.0.99">
+		<code>hooks.php</code>
 		<remove-file name="$sourcedir/Class-QuickSpoiler.php" />
 		<remove-file name="$themedir/css/quick_spoiler.css" />
 		<remove-file name="$themedir/scripts/quick_spoiler.js" />
+		<remove-file name="$themedir/images/bbc/spoiler.gif" />
 		<remove-dir name="$languagedir/QuickSpoiler" />
 		<remove-dir name="$themedir/images/spoiler" />
 		<redirect url="?action=admin;area=packages;sa=browse" timeout="1000" />

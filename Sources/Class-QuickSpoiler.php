@@ -9,7 +9,7 @@
  * @copyright 2011-2019 Bugo
  * @license https://creativecommons.org/licenses/by-sa/4.0/ CC BY-SA 4.0
  *
- * @version 1.2.4
+ * @version 1.2.2
  */
 
 if (!defined('SMF'))
@@ -18,66 +18,46 @@ if (!defined('SMF'))
 class QuickSpoiler
 {
 	/**
-	 * Used hooks
+	 * Подключаем необходимые хуки
 	 *
 	 * @return void
 	 */
 	public static function hooks()
 	{
-		add_integration_function('integrate_load_theme', 'QuickSpoiler::loadTheme', false, __FILE__);
-		add_integration_function('integrate_load_permissions', 'QuickSpoiler::loadPermissions', false, __FILE__);
-		add_integration_function('integrate_bbc_codes', 'QuickSpoiler::bbcCodes', false, __FILE__);
-		add_integration_function('integrate_bbc_buttons', 'QuickSpoiler::bbcButtons', false, __FILE__);
-		add_integration_function('integrate_buffer', 'QuickSpoiler::buffer', false, __FILE__);
-		add_integration_function('integrate_general_mod_settings', 'QuickSpoiler::generalModSettings', false, __FILE__);
+		add_integration_function('integrate_load_theme', 'QuickSpoiler::loadTheme', false);
+		add_integration_function('integrate_load_permissions', 'QuickSpoiler::loadPermissions', false);
+		add_integration_function('integrate_bbc_codes', 'QuickSpoiler::bbcCodes', false);
+		add_integration_function('integrate_bbc_buttons', 'QuickSpoiler::bbcButtons', false);
+		add_integration_function('integrate_buffer', 'QuickSpoiler::buffer', false);
+		add_integration_function('integrate_general_mod_settings', 'QuickSpoiler::generalModSettings', false);
 	}
 
-	/**
-	 * Languages, css & js
-	 *
-	 * @return void
-	 */
 	public static function loadTheme()
 	{
-		global $context;
+		global $context, $settings;
 
 		loadLanguage('QuickSpoiler/');
 
 		if (isset($_REQUEST['sa']) && $_REQUEST['sa'] == 'showoperations')
 			return;
 
-		loadCSSFile('quick_spoiler.css');
+		loadTemplate(false, 'quick_spoiler');
 
-		if (!in_array($context['current_action'], array('helpadmin', 'printpage')))
-			loadJavaScriptFile('quick_spoiler.js', array('minimize' => true));
+		if (!in_array($context['current_action'], array('helpadmin', 'printpage')) && (defined('WIRELESS') && !WIRELESS)) {
+			$context['insert_after_template'] .= '
+		<script type="text/javascript">window.jQuery || document.write(unescape(\'%3Cscript src="//code.jquery.com/jquery.min.js"%3E%3C/script%3E\'))</script>
+		<script type="text/javascript" src="' . $settings['default_theme_url'] . '/scripts/quick_spoiler.js"></script>';
+		}
 	}
 
-	/**
-	 * Spoiler permissions
-	 *
-	 * @param array $permissionGroups
-	 * @param array $permissionList
-	 * @return void
-	 */
 	public static function loadPermissions(&$permissionGroups, &$permissionList)
 	{
 		$permissionList['membergroup']['view_spoiler'] = array(false, 'general', 'view_basic_info');
 	}
 
-	/**
-	 * Spoiler tag
-	 *
-	 * @param array $codes
-	 * @return void
-	 */
 	public static function bbcCodes(&$codes)
 	{
 		global $modSettings, $txt;
-
-		if (!function_exists('allowedTo'))
-			return;
-
-		loadLanguage('QuickSpoiler/');
 
 		// Remove another spoiler tag
 		foreach ($codes as $tag => $dump) {
@@ -91,8 +71,6 @@ class QuickSpoiler
 
 		$head_class = $state == 'folded' ? '' : ' unfolded';
 		$body_class = $state == 'folded' ? ' folded' : '';
-
-		$txt['qs_footer'] = isset($txt['qs_footer']) ? $txt['qs_footer'] : $txt['find_close'];
 
 		// Our spoiler tag
 		if (allowedTo('view_spoiler')) {
@@ -114,31 +92,17 @@ class QuickSpoiler
 				'tag'         => 'spoiler',
 				'type'        => 'unparsed_content',
 				'content'     => '<div class="sp-wrap sp-wrap-' . $style . ' centertext">' . $txt['qs_no_spoiler_sorry'] . '</div>',
-				'validate' => function(&$tag, &$data, $disabled)
-				{
-					$data = null;
-				},
 				'block_level' => false
 			);
 			$codes[] = array(
 				'tag'         => 'spoiler',
 				'type'        => 'unparsed_equals_content',
 				'content'     => '<div class="sp-wrap sp-wrap-' . $style . ' centertext">' . $txt['qs_no_spoiler_sorry'] . '</div>',
-				'validate' => function(&$tag, &$data, $disabled)
-				{
-					$data = null;
-				},
 				'block_level' => false
 			);
 		}
 	}
 
-	/**
-	 * Spoiler button
-	 *
-	 * @param array $buttons
-	 * @return void
-	 */
 	public static function bbcButtons(&$buttons)
 	{
 		global $txt;
@@ -154,35 +118,26 @@ class QuickSpoiler
 		}
 	}
 
-	/**
-	 * Remove "[/spoiler]" from page source output
-	 *
-	 * @param array $buffer
-	 * @return void
-	 */
 	public static function buffer($buffer)
 	{
-		global $context;
+		global $context, $settings;
 
 		if (isset($_REQUEST['xml']) || $context['current_action'] == 'printpage')
 			return $buffer;
 
-		if (allowedTo('view_spoiler'))
-			return $buffer;
+		$spoiler = 'sImage: ' . JavaScriptEscape($settings['images_url'] . '/bbc/spoiler.gif');
+		$default = 'sImage: ' . JavaScriptEscape($settings['default_images_url'] . '/bbc/spoiler.gif');
+		$replacements[$spoiler] = $default;
 
-		$find = '[/spoiler]';
-		$repl = '';
-		$replacements[$find] = $repl;
+		if (!allowedTo('view_spoiler')) {
+			$find = '[/spoiler]';
+			$repl = '';
+			$replacements[$find] = $repl;
+		}
 
 		return str_replace(array_keys($replacements), array_values($replacements), $buffer);
 	}
 
-	/**
-	 * Spoiler settings
-	 *
-	 * @param array $config_vars
-	 * @return void
-	 */
 	public static function generalModSettings(&$config_vars)
 	{
 		global $modSettings, $txt;

@@ -2,8 +2,8 @@
 // Spanish translation https://www.bombercode.net Copyright 2014-2019
 
 $txt['quick_spoiler']       = 'Spoiler';
-$txt['qs_title']            = 'T&iacute;tulo de spoiler predeterminado';
-$txt['qs_settings']         = 'Configuraciones de Spoiler [Spoiler R&aacute;pido]';
+$txt['qs_title']            = 'Título de spoiler predeterminado';
+$txt['qs_settings']         = 'Configuraciones de Spoiler [Spoiler Rápido]';
 $txt['qs_no_spoiler_sorry'] = 'Lo sentimos pero no tienes permiso para ver el contenido del spoiler.';
 $txt['groups_view_spoiler'] = 'Viendo el contenido del spoiler';
 
@@ -16,7 +16,7 @@ $txt['qs_colors']  = array(
 	'blue'      => 'Azul',
 	'yellow'    => 'Amarillo',
 	'orange'    => 'Naranja',
-	'brown'     => 'Marr&oacute;n',
+	'brown'     => 'Marrón',
 	'purple'    => 'Púrpura',
 	'cyan'      => 'Cyan',
 	'lime'      => 'Verde Lima',
@@ -24,4 +24,4 @@ $txt['qs_colors']  = array(
 );
 
 $txt['permissionname_view_spoiler'] = $txt['group_perms_name_view_spoiler'] = $txt['groups_view_spoiler'];
-$txt['permissionhelp_view_spoiler'] = 'Los usuarios pueden ver la informaci&oacute;n que se oculta bajo los spoilers.';
+$txt['permissionhelp_view_spoiler'] = 'Los usuarios pueden ver la información que se oculta bajo los spoilers.';
