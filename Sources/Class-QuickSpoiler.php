@@ -72,10 +72,10 @@ class QuickSpoiler
 	 */
 	public static function bbcCodes(&$codes)
 	{
-		global $modSettings, $txt;
+		global $sourcedir, $modSettings, $txt;
 
 		if (!function_exists('allowedTo'))
-			return;
+			require_once($sourcedir . '/Security.php');
 
 		loadLanguage('QuickSpoiler/');
 
