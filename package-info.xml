@@ -3,13 +3,13 @@
 <package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
 	<id>Bugo:QuickSpoiler</id>
 	<name>Quick Spoiler</name>
-	<version>1.2.3</version>
+	<version>1.2.4</version>
 	<type>modification</type>
 
 	<install for="2.0 - 2.0.99">
 		<readme parsebbc="true" lang="russian-utf8">readme/russian-utf8.txt</readme>
 		<readme parsebbc="true" lang="russian">readme/russian.txt</readme>
-		<readme parsebbc="true">readme/readme.txt</readme>
+		<readme parsebbc="true" lang="english">readme/english.txt</readme>
 		<require-dir name="Themes" destination="$boarddir" />
 		<require-dir name="Sources" destination="$boarddir" />
 		<code>hooks.php</code>

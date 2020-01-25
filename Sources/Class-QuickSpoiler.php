@@ -6,10 +6,10 @@
  * @package Quick Spoiler
  * @link https://custom.simplemachines.org/mods/index.php?mod=2940
  * @author Bugo https://dragomano.ru/mods/quick-spoiler
- * @copyright 2011-2019 Bugo
- * @license https://creativecommons.org/licenses/by-sa/4.0/ CC BY-SA 4.0
+ * @copyright 2011-2020 Bugo
+ * @license https://opensource.org/licenses/BSD-3-Clause BSD
  *
- * @version 1.2.2
+ * @version 1.2.4
  */
 
 if (!defined('SMF'))
@@ -32,6 +32,11 @@ class QuickSpoiler
 		add_integration_function('integrate_general_mod_settings', 'QuickSpoiler::generalModSettings', false);
 	}
 
+	/**
+	 * Подключаем скрипты и стили
+	 *
+	 * @return void
+	 */
 	public static function loadTheme()
 	{
 		global $context, $settings;
@@ -50,11 +55,24 @@ class QuickSpoiler
 		}
 	}
 
+	/**
+	 * Определяем права доступа
+	 *
+	 * @param array $permissionGroups
+	 * @param array $permissionList
+	 * @return void
+	 */
 	public static function loadPermissions(&$permissionGroups, &$permissionList)
 	{
 		$permissionList['membergroup']['view_spoiler'] = array(false, 'general', 'view_basic_info');
 	}
 
+	/**
+	 * Добавляем ББ-код [spoiler]
+	 *
+	 * @param array $codes
+	 * @return void
+	 */
 	public static function bbcCodes(&$codes)
 	{
 		global $modSettings, $txt;
@@ -103,6 +121,12 @@ class QuickSpoiler
 		}
 	}
 
+	/**
+	 * Добавляем кнопку для вставки тега [spoiler] в редакторе
+	 *
+	 * @param array $buttons
+	 * @return void
+	 */
 	public static function bbcButtons(&$buttons)
 	{
 		global $txt;
@@ -118,6 +142,12 @@ class QuickSpoiler
 		}
 	}
 
+	/**
+	 * Производим некоторые замены в буфере страницы
+	 *
+	 * @param string $buffer
+	 * @return void
+	 */
 	public static function buffer($buffer)
 	{
 		global $context, $settings;
@@ -138,6 +168,12 @@ class QuickSpoiler
 		return str_replace(array_keys($replacements), array_values($replacements), $buffer);
 	}
 
+	/**
+	 * Подключаем настройки
+	 *
+	 * @param array $config_vars
+	 * @return void
+	 */
 	public static function generalModSettings(&$config_vars)
 	{
 		global $modSettings, $txt;
