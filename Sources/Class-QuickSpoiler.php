@@ -6,10 +6,10 @@
  * @package Quick Spoiler
  * @link https://custom.simplemachines.org/mods/index.php?mod=2940
  * @author Bugo https://dragomano.ru/mods/quick-spoiler
- * @copyright 2011-2019 Bugo
- * @license https://creativecommons.org/licenses/by-sa/4.0/ CC BY-SA 4.0
+ * @copyright 2011-2020 Bugo
+ * @license https://opensource.org/licenses/BSD-3-Clause BSD
  *
- * @version 1.2.4
+ * @version 1.2.5
  */
 
 if (!defined('SMF'))
@@ -114,9 +114,8 @@ class QuickSpoiler
 				'tag'         => 'spoiler',
 				'type'        => 'unparsed_content',
 				'content'     => '<div class="sp-wrap sp-wrap-' . $style . ' centertext">' . $txt['qs_no_spoiler_sorry'] . '</div>',
-				'validate' => function(&$tag, &$data, $disabled)
-				{
-					$data = null;
+				'validate' => function (&$tag, &$data) {
+					unset($data);
 				},
 				'block_level' => false
 			);
@@ -124,9 +123,8 @@ class QuickSpoiler
 				'tag'         => 'spoiler',
 				'type'        => 'unparsed_equals_content',
 				'content'     => '<div class="sp-wrap sp-wrap-' . $style . ' centertext">' . $txt['qs_no_spoiler_sorry'] . '</div>',
-				'validate' => function(&$tag, &$data, $disabled)
-				{
-					$data = null;
+				'validate' => function (&$tag, &$data) {
+					unset($data);
 				},
 				'block_level' => false
 			);
