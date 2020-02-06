@@ -5,7 +5,7 @@
 * **Author:** Bugo [dragomano.ru](https://dragomano.ru/mods/quick-spoiler)
 * **License:** [BSD 3](https://github.com/dragomano/Quick-Spoiler/blob/master/LICENSE)
 * **Compatible with:** SMF 2.1.*
-* **Tested on:** PHP 7.3.13
+* **Tested on:** PHP 7.3.14
 * **Hooks only:** Yes
 * **Languages:** Bulgarian, English, French, Italian, Polish, Portuguese_Brazilian, Russian, Spanish
 

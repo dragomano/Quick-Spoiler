@@ -9,7 +9,7 @@
  * @copyright 2011-2020 Bugo
  * @license https://opensource.org/licenses/BSD-3-Clause BSD
  *
- * @version 1.2.5
+ * @version 1.2.6
  */
 
 if (!defined('SMF'))
@@ -162,17 +162,10 @@ class QuickSpoiler
 	{
 		global $context;
 
-		if (isset($_REQUEST['xml']) || $context['current_action'] == 'printpage')
+		if (isset($_REQUEST['xml']) || $context['current_action'] == 'printpage' || allowedTo('view_spoiler'))
 			return $buffer;
 
-		if (allowedTo('view_spoiler'))
-			return $buffer;
-
-		$find = '[/spoiler]';
-		$repl = '';
-		$replacements[$find] = $repl;
-
-		return str_replace(array_keys($replacements), array_values($replacements), $buffer);
+		return str_replace('[/spoiler]', '', $buffer);
 	}
 
 	/**

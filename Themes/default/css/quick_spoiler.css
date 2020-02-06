@@ -6,6 +6,8 @@
 	margin-bottom:10px;
 	border-radius: 7px;
 	clear: left;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
 }
 .sp-head {
 	cursor: pointer;
@@ -29,7 +31,6 @@
 	cursor: pointer;
 	display:block;
 }
-
 
 .sp-wrap-default {
 	background: none repeat scroll 0% 0% #E9E9E6;
