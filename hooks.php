@@ -5,6 +5,8 @@ if (file_exists(dirname(__FILE__) . '/SSI.php') && !defined('SMF'))
 elseif (!defined('SMF'))
 	exit('<b>Error:</b> Cannot install - please verify you put this in the same place as SMF\'s index.php.');
 
+$smcFunc['db_query']('', "DELETE FROM {db_prefix}permissions WHERE permission LIKE 'view_spoiler'");
+
 $hooks = array(
 	'integrate_pre_include' => '$sourcedir/Class-QuickSpoiler.php',
 	'integrate_pre_load'    => 'QuickSpoiler::hooks'

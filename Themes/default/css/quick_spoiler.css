@@ -1,11 +1,13 @@
 .sp-wrap {
 	padding: 0px;
-    border-style: solid;
-    border-image: none;
-    border-width: 1px 1px 1px 2px;
-    clear: both;
+	border-style: solid;
+	border-image: none;
+	border-width: 1px 1px 1px 2px;
 	margin-bottom:10px;
-    border-radius: 7px;
+	border-radius: 7px;
+	clear: left;
+	word-wrap: break-word;
+	overflow-wrap: break-word;
 }
 .sp-head {
 	cursor: pointer;
@@ -18,22 +20,21 @@
 .sp-body {
 	padding: 2px 6px;
 	height:auto;
-    border-radius: 0 0 7px 7px;
-    display: none;
+	border-radius: 0 0 7px 7px;
+	display: none;
 }
 .sp-foot {
 	width: 98%;
-    margin: 0px auto;
-    text-align: right;
-    font-size: 0.8em;
+	margin: 0px auto;
+	text-align: right;
+	font-size: 0.8em;
 	cursor: pointer;
 	display:block;
 }
 
-
 .sp-wrap-default {
 	background: none repeat scroll 0% 0% #E9E9E6;
-    border-color: #C3CBD1;
+	border-color: #C3CBD1;
 }
 .sp-wrap-default .sp-head {
 	background: url(../images/spoiler/open.gif) no-repeat left center;
@@ -47,13 +48,13 @@
 	border-top:1px solid #C3CBD1;
 }
 .sp-wrap-default .sp-foot {
-    color: #444;
+	color: #444;
 }
 
 
 .sp-wrap-green {
 	background: none repeat scroll 0% 0% #A9D0B3;
-    border-color: #89BE95;
+	border-color: #89BE95;
 }
 .sp-wrap-green .sp-head {
 	background: url(../images/spoiler/open.gif) no-repeat left center;
@@ -67,13 +68,13 @@
 	border-top:1px solid #89BE95;
 }
 .sp-wrap-green .sp-foot {
-    color: #444;
+	color: #444;
 }
 
 
 .sp-wrap-red {
 	background: none repeat scroll 0% 0% #FFB3B3;
-    border-color: #FF9999;
+	border-color: #FF9999;
 }
 .sp-wrap-red .sp-head {
 	background: url(../images/spoiler/open.gif) no-repeat left center;
@@ -87,13 +88,13 @@
 	border-top:1px solid #FF9999;
 }
 .sp-wrap-red .sp-foot {
-    color: #444;
+	color: #444;
 }
 
 
 .sp-wrap-blue {
 	background: none repeat scroll 0% 0% #A8C3F5;
-    border-color: #7CA8EE;
+	border-color: #7CA8EE;
 }
 .sp-wrap-blue .sp-head {
 	background: url(../images/spoiler/open.gif) no-repeat left center;
@@ -107,13 +108,13 @@
 	border-top:1px solid #7CA8EE;
 }
 .sp-wrap-blue .sp-foot {
-    color: #444;
+	color: #444;
 }
 
 
 .sp-wrap-yellow {
 	background: none repeat scroll 0% 0% #F5EEB2;
-    border-color: #ECE06F;
+	border-color: #ECE06F;
 }
 .sp-wrap-yellow .sp-head {
 	background: url(../images/spoiler/open.gif) no-repeat left center;
@@ -127,13 +128,13 @@
 	border-top:1px solid #ECE06F;
 }
 .sp-wrap-yellow .sp-foot {
-    color: #444;
+	color: #444;
 }
 
 
 .sp-wrap-orange {
 	background: none repeat scroll 0% 0% #FFD39E;
-    border-color: #FFBC6B;
+	border-color: #FFBC6B;
 }
 .sp-wrap-orange .sp-head {
 	background: url(../images/spoiler/open.gif) no-repeat left center;
@@ -147,13 +148,13 @@
 	border-top:1px solid #FFBC6B;
 }
 .sp-wrap-orange .sp-foot {
-    color: #444;
+	color: #444;
 }
 
 
 .sp-wrap-brown {
 	background: none repeat scroll 0% 0% #E4C6B4;
-    border-color: #D5A890;
+	border-color: #D5A890;
 }
 .sp-wrap-brown .sp-head {
 	background: url(../images/spoiler/open.gif) no-repeat left center;
@@ -167,13 +168,13 @@
 	border-top:1px solid #D5A890;
 }
 .sp-wrap-brown .sp-foot {
-    color: #444;
+	color: #444;
 }
 
 
 .sp-wrap-purple {
 	background: none repeat scroll 0% 0% #FFB3FF;
-    border-color: #FF80FF;
+	border-color: #FF80FF;
 }
 .sp-wrap-purple .sp-head {
 	background: url(../images/spoiler/open.gif) no-repeat left center;
@@ -187,13 +188,13 @@
 	border-top:1px solid #FF80FF;
 }
 .sp-wrap-purple .sp-foot {
-    color: #444;
+	color: #444;
 }
 
 
 .sp-wrap-cyan {
 	background: none repeat scroll 0% 0% #99FFFF;
-    border-color: #4DFFFF;
+	border-color: #4DFFFF;
 }
 .sp-wrap-cyan .sp-head {
 	background: url(../images/spoiler/open.gif) no-repeat left center;
@@ -207,13 +208,13 @@
 	border-top:1px solid #4DFFFF;
 }
 .sp-wrap-cyan .sp-foot {
-    color: #444;
+	color: #444;
 }
 
 
 .sp-wrap-lime {
 	background: none repeat scroll 0% 0% #99FF99;
-    border-color: #66FF66;
+	border-color: #66FF66;
 }
 .sp-wrap-lime .sp-head {
 	background: url(../images/spoiler/open.gif) no-repeat left center;
@@ -227,12 +228,12 @@
 	border-top:1px solid #66FF66;
 }
 .sp-wrap-lime .sp-foot {
-    color: #444;
+	color: #444;
 }
 
 .sp-wrap-steelblue {
 	background: none repeat scroll 0% 0% #B2CAE0;
-    border-color: #8EB2D2;
+	border-color: #8EB2D2;
 }
 .sp-wrap-steelblue .sp-head {
 	background: url(../images/spoiler/open.gif) no-repeat left center;
@@ -246,5 +247,5 @@
 	border-top:1px solid #8EB2D2;
 }
 .sp-wrap-steelblue .sp-foot {
-    color: #444;
+	color: #444;
 }
