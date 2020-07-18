@@ -43,7 +43,7 @@ class QuickSpoiler
 
 		loadLanguage('QuickSpoiler/');
 
-		if (isset($_REQUEST['sa']) && $_REQUEST['sa'] == 'showoperations')
+		if ($context['current_subaction'] == 'showoperations')
 			return;
 
 		loadCSSFile('quick_spoiler.css');
