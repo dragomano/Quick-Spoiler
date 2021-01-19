@@ -1,11 +1,11 @@
-jQuery(document).ready(function($){
+jQuery(document).ready(function($) {
 	$('.sp-body img').each(function() {
 		$(this).attr({
 			alt: $(this).attr('src'),
-			src: smf_default_theme_url + '/images/loading.gif'
+			src: smf_default_theme_url + '/images/loading_sm.gif'
 		});
 	});
-	$("body").on("click", ".sp-head", function(event){
+	$("body").on("click", ".sp-head", function() {
 		$this = $(this);
 		if ($this.hasClass("unfolded")) {
 			$this.removeClass("unfolded");
@@ -21,7 +21,7 @@ jQuery(document).ready(function($){
 			$(this).attr('src', $(this).attr('alt'));
 		});
 	});
-	$("body").on("click", ".sp-foot", function(event){
+	$("body").on("click", ".sp-foot", function() {
 		$this = $(this).closest("div.sp-body").prev();
 		if ($this.hasClass("unfolded")) {
 			$this.removeClass("unfolded");

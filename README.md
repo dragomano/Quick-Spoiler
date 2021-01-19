@@ -5,7 +5,7 @@
 * **Author:** Bugo [dragomano.ru](https://dragomano.ru/mods/quick-spoiler)
 * **License:** [BSD 3](https://github.com/dragomano/Quick-Spoiler/blob/master/LICENSE)
 * **Compatible with:** SMF 2.1.*
-* **Tested on:** PHP 7.3.14
+* **Tested on:** PHP 7.3.26
 * **Hooks only:** Yes
 * **Languages:** Bulgarian, English, French, Italian, Polish, Portuguese_Brazilian, Russian, Spanish
 
@@ -14,3 +14,7 @@ Simple and beautiful jQuery spoiler, with custom title. Based on the [BBSpoiler]
 
 ## Описание
 Красивый jQuery спойлер, как на Rutracker.org, на основе плагина [BBSpoiler](http://www.wordpressplugins.ru/posts/bbspoiler.html) для Wordpress.
+
+В комплекте несколько стилей оформления и подгрузка картинок только при открытии спойлера.
+
+![](https://user-images.githubusercontent.com/229402/104960667-839f1580-59f6-11eb-9f55-941c1d817d68.png)

@@ -6,10 +6,10 @@
  * @package Quick Spoiler
  * @link https://custom.simplemachines.org/mods/index.php?mod=2940
  * @author Bugo https://dragomano.ru/mods/quick-spoiler
- * @copyright 2011-2020 Bugo
+ * @copyright 2011-2021 Bugo
  * @license https://opensource.org/licenses/BSD-3-Clause BSD
  *
- * @version 1.2.6
+ * @version 1.3
  */
 
 if (!defined('SMF'))
@@ -24,12 +24,12 @@ class QuickSpoiler
 	 */
 	public static function hooks()
 	{
-		add_integration_function('integrate_load_theme', 'QuickSpoiler::loadTheme', false, __FILE__);
-		add_integration_function('integrate_load_permissions', 'QuickSpoiler::loadPermissions', false, __FILE__);
-		add_integration_function('integrate_bbc_codes', 'QuickSpoiler::bbcCodes', false, __FILE__);
-		add_integration_function('integrate_bbc_buttons', 'QuickSpoiler::bbcButtons', false, __FILE__);
-		add_integration_function('integrate_buffer', 'QuickSpoiler::buffer', false, __FILE__);
-		add_integration_function('integrate_general_mod_settings', 'QuickSpoiler::generalModSettings', false, __FILE__);
+		add_integration_function('integrate_load_theme', __CLASS__ . '::loadTheme', false, __FILE__);
+		add_integration_function('integrate_load_permissions', __CLASS__ . '::loadPermissions', false, __FILE__);
+		add_integration_function('integrate_bbc_codes', __CLASS__ . '::bbcCodes', false, __FILE__);
+		add_integration_function('integrate_bbc_buttons', __CLASS__ . '::bbcButtons', false, __FILE__);
+		add_integration_function('integrate_prepare_display_context', __CLASS__ . '::prepareDisplayContext', false, __FILE__);
+		add_integration_function('integrate_general_mod_settings', __CLASS__ . '::generalModSettings', false, __FILE__);
 	}
 
 	/**
@@ -43,7 +43,7 @@ class QuickSpoiler
 
 		loadLanguage('QuickSpoiler/');
 
-		if ($context['current_subaction'] == 'showoperations')
+		if (isset($_REQUEST['sa']) && $_REQUEST['sa'] == 'showoperations')
 			return;
 
 		loadCSSFile('quick_spoiler.css');
@@ -92,47 +92,47 @@ class QuickSpoiler
 		$head_class = $state == 'folded' ? '' : ' unfolded';
 		$body_class = $state == 'folded' ? ' folded' : '';
 
-		$txt['qs_footer'] = isset($txt['qs_footer']) ? $txt['qs_footer'] : $txt['find_close'];
-
 		// Our spoiler tag
 		if (allowedTo('view_spoiler')) {
 			$codes[] = array(
 				'tag'         => 'spoiler',
-				'before'      => '<div class="sp-wrap sp-wrap-' . $style . '"><div class="sp-head' . $head_class . '">' . (!empty($modSettings['qs_title']) ? $modSettings['qs_title'] : $txt['quick_spoiler']) . '</div><div class="sp-body' . $body_class . '">',
-				'after'       => '<div class="sp-foot">' . $txt['qs_footer'] . '</div></div></div>',
+				'before'      => '<details class="sp-wrap sp-wrap-' . $style . '"><summary class="sp-head' . $head_class . '">' . (!empty($modSettings['qs_title']) ? $modSettings['qs_title'] : $txt['quick_spoiler']) . '</summary><div class="sp-body' . $body_class . '">',
+				'after'       => '<div class="sp-foot">' . $txt['qs_footer'] . '</div></div></details>',
 				'block_level' => true
 			);
 			$codes[] = array(
 				'tag'         => 'spoiler',
 				'type'        => 'parsed_equals',
-				'before'      => '<div class="sp-wrap sp-wrap-' . $style . '"><div class="sp-head' . $head_class . '">$1</div><div class="sp-body' . $body_class . '">',
-				'after'       => '<div class="sp-foot">' . $txt['qs_footer'] . '</div></div></div>',
+				'before'      => '<details class="sp-wrap sp-wrap-' . $style . '"><summary class="sp-head' . $head_class . '">$1</summary><div class="sp-body' . $body_class . '">',
+				'after'       => '<div class="sp-foot">' . $txt['qs_footer'] . '</div></div></details>',
 				'block_level' => true
 			);
 		} else {
 			$codes[] = array(
-				'tag'         => 'spoiler',
-				'type'        => 'unparsed_content',
-				'content'     => '<div class="sp-wrap sp-wrap-' . $style . ' centertext">' . $txt['qs_no_spoiler_sorry'] . '</div>',
+				'tag'      => 'spoiler',
+				'type'     => 'unparsed_content',
+				'content'  => '<div class="errorbox centertext">' . $txt['qs_no_spoiler_sorry'] . '</div>',
 				'validate' => function (&$tag, &$data) {
 					unset($data);
 				},
-				'block_level' => false
+				'block_level' => false,
+				'disabled_content' => '<div class="errorbox centertext">' . $txt['qs_no_spoiler_sorry'] . '</div>'
 			);
 			$codes[] = array(
-				'tag'         => 'spoiler',
-				'type'        => 'unparsed_equals_content',
-				'content'     => '<div class="sp-wrap sp-wrap-' . $style . ' centertext">' . $txt['qs_no_spoiler_sorry'] . '</div>',
+				'tag'      => 'spoiler',
+				'type'     => 'unparsed_equals_content',
+				'content'  => '<div class="errorbox centertext">' . $txt['qs_no_spoiler_sorry'] . '</div>',
 				'validate' => function (&$tag, &$data) {
 					unset($data);
 				},
-				'block_level' => false
+				'block_level' => false,
+				'disabled_content' => '<div class="errorbox centertext">' . $txt['qs_no_spoiler_sorry'] . '</div>'
 			);
 		}
 	}
 
 	/**
-	 * Spoiler button
+	 * Add spoiler button
 	 *
 	 * @param array $buttons
 	 * @return void
@@ -153,19 +153,18 @@ class QuickSpoiler
 	}
 
 	/**
-	 * Remove "[/spoiler]" from page source output
+	 * Remove [/spoiler] tails for nested spoilers
 	 *
-	 * @param array $buffer
+	 * @param array $output
 	 * @return void
 	 */
-	public static function buffer($buffer)
+	public static function prepareDisplayContext(&$output)
 	{
-		global $context;
+		if (allowedTo('view_spoiler'))
+			return;
 
-		if (isset($_REQUEST['xml']) || $context['current_action'] == 'printpage' || allowedTo('view_spoiler'))
-			return $buffer;
-
-		return str_replace('[/spoiler]', '', $buffer);
+		if (strpos($output['body'], '[/spoiler]') !== false)
+			$output['body'] = strtr($output['body'], array('[/spoiler]' => ''));
 	}
 
 	/**
