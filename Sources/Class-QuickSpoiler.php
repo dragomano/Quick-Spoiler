@@ -9,7 +9,7 @@
  * @copyright 2011-2021 Bugo
  * @license https://opensource.org/licenses/BSD-3-Clause BSD
  *
- * @version 1.3
+ * @version 1.4
  */
 
 if (!defined('SMF'))
@@ -47,6 +47,16 @@ class QuickSpoiler
 			return;
 
 		loadCSSFile('quick_spoiler.css');
+
+		if ($context['right_to_left'])
+			addInlineCss('
+		.sp-head {
+			padding-right: 10px;
+			text-align: right;
+		}
+		.sp-foot {
+			text-align: left;
+		}');
 
 		if (!in_array($context['current_action'], array('helpadmin', 'printpage')))
 			loadJavaScriptFile('quick_spoiler.js', array('minimize' => true));
@@ -87,23 +97,18 @@ class QuickSpoiler
 
 		$style = !empty($modSettings['qs_bgcolor']) ? $modSettings['qs_bgcolor'] : 'default';
 
-		$state = 'folded';
-
-		$head_class = $state == 'folded' ? '' : ' unfolded';
-		$body_class = $state == 'folded' ? ' folded' : '';
-
 		// Our spoiler tag
 		if (allowedTo('view_spoiler')) {
 			$codes[] = array(
 				'tag'         => 'spoiler',
-				'before'      => '<details class="sp-wrap sp-wrap-' . $style . '"><summary class="sp-head' . $head_class . '">' . (!empty($modSettings['qs_title']) ? $modSettings['qs_title'] : $txt['quick_spoiler']) . '</summary><div class="sp-body' . $body_class . '">',
+				'before'      => '<details class="sp-wrap sp-wrap-' . $style . '"><summary class="sp-head">' . (!empty($modSettings['qs_title']) ? $modSettings['qs_title'] : $txt['quick_spoiler']) . '</summary><div class="sp-body">',
 				'after'       => '<div class="sp-foot">' . $txt['qs_footer'] . '</div></div></details>',
 				'block_level' => true
 			);
 			$codes[] = array(
 				'tag'         => 'spoiler',
 				'type'        => 'parsed_equals',
-				'before'      => '<details class="sp-wrap sp-wrap-' . $style . '"><summary class="sp-head' . $head_class . '">$1</summary><div class="sp-body' . $body_class . '">',
+				'before'      => '<details class="sp-wrap sp-wrap-' . $style . '"><summary class="sp-head">$1</summary><div class="sp-body">',
 				'after'       => '<div class="sp-foot">' . $txt['qs_footer'] . '</div></div></details>',
 				'block_level' => true
 			);
@@ -115,7 +120,6 @@ class QuickSpoiler
 				'validate' => function (&$tag, &$data) {
 					unset($data);
 				},
-				'block_level' => false,
 				'disabled_content' => '<div class="errorbox centertext">' . $txt['qs_no_spoiler_sorry'] . '</div>'
 			);
 			$codes[] = array(
@@ -125,7 +129,6 @@ class QuickSpoiler
 				'validate' => function (&$tag, &$data) {
 					unset($data);
 				},
-				'block_level' => false,
 				'disabled_content' => '<div class="errorbox centertext">' . $txt['qs_no_spoiler_sorry'] . '</div>'
 			);
 		}
