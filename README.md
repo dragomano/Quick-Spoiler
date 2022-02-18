@@ -1,13 +1,10 @@
 # Quick Spoiler
-![SMF 2.1](https://img.shields.io/badge/SMF-2.1-ed6033.svg?style=flat)
+[![SMF 2.1](https://img.shields.io/badge/SMF-2.1-ed6033.svg?style=flat)](https://github.com/SimpleMachines/SMF2.1)
 ![License](https://img.shields.io/github/license/dragomano/quick-spoiler)
+![Hooks only: Yes](https://img.shields.io/badge/Hooks%20only-YES-blue)
 
-* **Author:** Bugo [dragomano.ru](https://dragomano.ru/mods/quick-spoiler)
-* **License:** [BSD 3](https://github.com/dragomano/Quick-Spoiler/blob/master/LICENSE)
-* **Compatible with:** SMF 2.1.*
-* **Tested on:** PHP 7.4.15
-* **Hooks only:** Yes
-* **Languages:** Bulgarian, English, French, Italian, Polish, Portuguese_Brazilian, Russian, Spanish
+* **Tested on:** PHP 7.4.27
+* **Languages:** Bulgarian, English, French, Italian, Polish, Portuguese_Brazilian, Russian, Spanish, Turkish
 
 ## Description
 Simple and beautiful jQuery spoiler, with custom title. Based on the [BBSpoiler](http://www.wordpressplugins.ru/posts/bbspoiler.html) plugin for Wordpress.
