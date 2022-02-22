@@ -7,7 +7,7 @@ jQuery(document).ready(function($) {
 			'data-src': $(this).attr('src'),
 			src: smf_default_theme_url + '/images/loading_sm.gif'
 		});
-	}
+	};
 
 	$('.sp-body img').each(addLoader);
 
@@ -28,7 +28,7 @@ jQuery(document).ready(function($) {
 	}
 
 	$('body').on('click', '.sp-head', function() {
-		$this = $(this);
+		let $this = $(this);
 		$this.parent().is('open') ? $this.next().slideUp('fast') : $this.next().slideDown('fast');
 		$this.parent().children('.sp-body').find('img').each(function() {
 			$(this).attr('src', $(this).attr('data-src'));
