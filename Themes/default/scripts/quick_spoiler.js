@@ -1,24 +1,38 @@
 jQuery(document).ready(function($) {
-	$('.sp-body img').each(function() {
-		$(this).attr({
-			alt: $(this).attr('src'),
-			src: smf_default_theme_url + '/images/loading_sm.gif'
-		});
-	});
-	$('body').on('click', '.sp-head', function() {
-		$this = $(this);
-		if ($this.parent().is('open')) {
-			$this.next().slideUp('fast');
-		} else {
-			$this.next().slideDown('fast');
-		}
-		c = $this.parent().children('.sp-body');
-		c.find('img').each(function() {
-			$(this).attr('src', $(this).attr('alt'));
-		});
-	});
-	$('body').on('click', '.sp-foot', function() {
-		$this = $(this).parent();
-		$this.parent().removeAttr("open");
-	});
+    $('.sp-body img').each(addLoader);
+
+    const previewBody = document.getElementById('preview_body');
+    if (previewBody) {
+        const config = {childList: true};
+        const callback = function(mutationsList) {
+            for (let mutation of mutationsList) {
+                if (mutation.type === 'childList') {
+                    $('.sp-body img').each(addLoader);
+                }
+            }
+        };
+
+        const observer = new MutationObserver(callback);
+        observer.observe(previewBody, config);
+    }
+
+    $('body').on('click', '.sp-head', function() {
+        $this = $(this);
+        $this.parent().is('open') ? $this.next().slideUp('fast') : $this.next().slideDown('fast');
+        $this.parent().children('.sp-body').find('img').each(function() {
+            $(this).attr('src', $(this).attr('data-src'));
+        });
+    });
+
+    $('body').on('click', '.sp-foot', function() {
+        $this = $(this).parent();
+        $this.parent().removeAttr("open");
+    });
 });
+
+let addLoader = function() {
+    $(this).attr({
+        'data-src': $(this).attr('src'),
+        src: smf_default_theme_url + '/images/loading_sm.gif'
+    });
+}
