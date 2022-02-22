@@ -37,7 +37,7 @@ jQuery(document).ready(function($) {
 	});
 
 	$('body').on('click', '.sp-foot', function() {
-		$this = $(this).parent();
+		let $this = $(this).parent();
 		$this.prev().toggleClass('opened');
 		$this.parent().removeAttr("open");
 	});
