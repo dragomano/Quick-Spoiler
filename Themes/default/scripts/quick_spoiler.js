@@ -29,6 +29,7 @@ jQuery(document).ready(function($) {
 
 	$('body').on('click', '.sp-head', function() {
 		let $this = $(this);
+		$this.toggleClass('opened');
 		$this.parent().is('open') ? $this.next().slideUp('fast') : $this.next().slideDown('fast');
 		$this.parent().children('.sp-body').find('img').each(function() {
 			$(this).attr('src', $(this).attr('data-src'));
@@ -37,6 +38,7 @@ jQuery(document).ready(function($) {
 
 	$('body').on('click', '.sp-foot', function() {
 		$this = $(this).parent();
+		$this.prev().toggleClass('opened');
 		$this.parent().removeAttr("open");
 	});
 });
