@@ -6,44 +6,34 @@
  * @package Quick Spoiler
  * @link https://custom.simplemachines.org/mods/index.php?mod=2940
  * @author Bugo https://dragomano.ru/mods/quick-spoiler
- * @copyright 2011-2021 Bugo
+ * @copyright 2011-2022 Bugo
  * @license https://opensource.org/licenses/BSD-3-Clause BSD
  *
- * @version 1.4
+ * @version 1.5
  */
 
 if (!defined('SMF'))
 	die('Hacking attempt...');
 
-class QuickSpoiler
+final class QuickSpoiler
 {
-	/**
-	 * Used hooks
-	 *
-	 * @return void
-	 */
-	public static function hooks()
+	public function hooks()
 	{
-		add_integration_function('integrate_load_theme', __CLASS__ . '::loadTheme', false, __FILE__);
-		add_integration_function('integrate_load_permissions', __CLASS__ . '::loadPermissions', false, __FILE__);
-		add_integration_function('integrate_bbc_codes', __CLASS__ . '::bbcCodes', false, __FILE__);
-		add_integration_function('integrate_bbc_buttons', __CLASS__ . '::bbcButtons', false, __FILE__);
-		add_integration_function('integrate_prepare_display_context', __CLASS__ . '::prepareDisplayContext', false, __FILE__);
-		add_integration_function('integrate_general_mod_settings', __CLASS__ . '::generalModSettings', false, __FILE__);
+		add_integration_function('integrate_load_theme', __CLASS__ . '::loadTheme#', false, __FILE__);
+		add_integration_function('integrate_load_permissions', __CLASS__ . '::loadPermissions#', false, __FILE__);
+		add_integration_function('integrate_bbc_codes', __CLASS__ . '::bbcCodes#', false, __FILE__);
+		add_integration_function('integrate_bbc_buttons', __CLASS__ . '::bbcButtons#', false, __FILE__);
+		add_integration_function('integrate_prepare_display_context', __CLASS__ . '::prepareDisplayContext#', false, __FILE__);
+		add_integration_function('integrate_general_mod_settings', __CLASS__ . '::generalModSettings#', false, __FILE__);
 	}
 
-	/**
-	 * Languages, css & js
-	 *
-	 * @return void
-	 */
-	public static function loadTheme()
+	public function loadTheme()
 	{
 		global $context;
 
 		loadLanguage('QuickSpoiler/');
 
-		if (isset($_REQUEST['sa']) && $_REQUEST['sa'] == 'showoperations')
+		if (isset($_REQUEST['sa']) && $_REQUEST['sa'] === 'showoperations')
 			return;
 
 		loadCSSFile('quick_spoiler.css');
@@ -62,25 +52,12 @@ class QuickSpoiler
 			loadJavaScriptFile('quick_spoiler.js', array('minimize' => true));
 	}
 
-	/**
-	 * Spoiler permissions
-	 *
-	 * @param array $permissionGroups
-	 * @param array $permissionList
-	 * @return void
-	 */
-	public static function loadPermissions(&$permissionGroups, &$permissionList)
+	public function loadPermissions(array &$permissionGroups, array &$permissionList)
 	{
 		$permissionList['membergroup']['view_spoiler'] = array(false, 'general', 'view_basic_info');
 	}
 
-	/**
-	 * Spoiler tag
-	 *
-	 * @param array $codes
-	 * @return void
-	 */
-	public static function bbcCodes(&$codes)
+	public function bbcCodes(array &$codes)
 	{
 		global $sourcedir, $modSettings, $txt;
 
@@ -89,13 +66,11 @@ class QuickSpoiler
 
 		loadLanguage('QuickSpoiler/');
 
-		// Remove another spoiler tag
-		foreach ($codes as $tag => $dump) {
-			if ($dump['tag'] == 'spoiler')
-				unset($codes[$tag]);
-		}
+		$codes = array_filter($codes, function ($code) {
+			return $code['tag'] !== 'spoiler';
+		});
 
-		$style = !empty($modSettings['qs_bgcolor']) ? $modSettings['qs_bgcolor'] : 'default';
+		$style = empty($modSettings['qs_bgcolor']) ? 'default' : $modSettings['qs_bgcolor'];
 
 		// Our spoiler tag
 		if (allowedTo('view_spoiler')) {
@@ -134,13 +109,7 @@ class QuickSpoiler
 		}
 	}
 
-	/**
-	 * Add spoiler button
-	 *
-	 * @param array $buttons
-	 * @return void
-	 */
-	public static function bbcButtons(&$buttons)
+	public function bbcButtons(array &$buttons)
 	{
 		global $txt;
 
@@ -155,13 +124,7 @@ class QuickSpoiler
 		}
 	}
 
-	/**
-	 * Remove [/spoiler] tails for nested spoilers
-	 *
-	 * @param array $output
-	 * @return void
-	 */
-	public static function prepareDisplayContext(&$output)
+	public function prepareDisplayContext(array &$output)
 	{
 		if (allowedTo('view_spoiler'))
 			return;
@@ -170,13 +133,7 @@ class QuickSpoiler
 			$output['body'] = strtr($output['body'], array('[/spoiler]' => ''));
 	}
 
-	/**
-	 * Spoiler settings
-	 *
-	 * @param array $config_vars
-	 * @return void
-	 */
-	public static function generalModSettings(&$config_vars)
+	public function generalModSettings(array &$config_vars)
 	{
 		global $modSettings, $txt;
 
