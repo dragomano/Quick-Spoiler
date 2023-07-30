@@ -23,4 +23,4 @@ $txt['qs_colors']  = array(
 );
 
 $txt['permissionname_view_spoiler'] = $txt['group_perms_name_view_spoiler'] = $txt['groups_view_spoiler'];
-$txt['permissionhelp_view_spoiler'] = 'Users can view info that hidden under spoilers.';
+$txt['permissionhelp_view_spoiler'] = 'Users can view info hidden under spoilers.';
