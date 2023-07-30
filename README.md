@@ -4,7 +4,7 @@
 ![Hooks only: Yes](https://img.shields.io/badge/Hooks%20only-YES-blue)
 
 * **Tested on:** PHP 7.4.30
-* **Languages:** Bulgarian, English, French, Italian, Polish, Portuguese, Russian, Spanish, Turkish, German
+* **Languages:** Bulgarian, English, French, Italian, Polish, Portuguese, Russian, Spanish, Turkish, German, Greek
 
 ## Description
 Simple and beautiful jQuery spoiler, with custom title. Based on the [BBSpoiler](http://www.wordpressplugins.ru/posts/bbspoiler.html) plugin for Wordpress.
