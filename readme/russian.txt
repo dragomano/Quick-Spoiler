@@ -1,4 +1,0 @@
-[center][color=red][size=16pt][b]Quick Spoiler[/b][/size][/color]
-[color=blue][b][size=10pt]By Bugo[/size][/b][/color]
-
-[color=green]Красивый jQuery спойлер, как на Rutracker.org, на основе плагина [url=http://www.wordpressplugins.ru/posts/bbspoiler.html]BBSpoiler[/url] для Wordpress.[/color][/center][hr]Распространяется по лицензии [url=https://github.com/dragomano/Quick-Spoiler/blob/master/LICENSE]BSD 3-Clause[/url]

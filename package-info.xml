@@ -3,12 +3,10 @@
 <package-info xmlns="http://www.simplemachines.org/xml/package-info" xmlns:smf="http://www.simplemachines.org/">
 	<id>Bugo:QuickSpoiler</id>
 	<name>Quick Spoiler</name>
-	<version>1.5.3</version>
+	<version>1.5.4</version>
 	<type>modification</type>
 
 	<install for="2.1.*">
-		<readme parsebbc="true" lang="russian">readme/russian.txt</readme>
-		<readme parsebbc="true" lang="english">readme/english.txt</readme>
 		<hook hook="integrate_pre_load" function="QuickSpoiler::hooks#" file="$sourcedir/Class-QuickSpoiler.php" />
 		<require-dir name="Themes" destination="$boarddir" />
 		<require-dir name="Sources" destination="$boarddir" />

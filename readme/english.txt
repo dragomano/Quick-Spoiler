@@ -1,4 +1,0 @@
-[center][color=red][size=16pt][b]Quick Spoiler[/b][/size][/color]
-[color=blue][b][size=10pt]By Bugo[/size][/b][/color]
-
-[color=green]Simple and beautiful jQuery spoiler, with custom title. Based on the [url=http://www.wordpressplugins.ru/posts/bbspoiler.html]BBSpoiler[/url] plugin for Wordpress.[/center][hr]This work is licensed under the [url=https://github.com/dragomano/Quick-Spoiler/blob/master/LICENSE]BSD 3-Clause[/url] License
